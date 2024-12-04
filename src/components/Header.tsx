@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 export function Header() {
   const location = useLocation();
   const { t } = useTranslation();
+  const isHomePage = location.pathname === '/';
 
   const getPageTitle = () => {
     const path = location.pathname;
@@ -23,14 +24,16 @@ export function Header() {
   };
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-gray-900 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <Logo />
         <div className="flex items-center gap-6">
-          <h2 className="text-lg font-semibold text-gray-700">
-            {getPageTitle()}
-          </h2>
-          <LanguageSelector />
+          {!isHomePage && (
+            <h2 className="text-lg font-semibold text-gray-100 hidden md:block">
+              {getPageTitle()}
+            </h2>
+          )}
+          {isHomePage && <LanguageSelector />}
         </div>
       </div>
     </header>
